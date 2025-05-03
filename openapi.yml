@@ -1,0 +1,114 @@
+openapi: 3.0.3
+info:
+  title: Glofox Class Booking API
+  version: 1.0.0
+  description: >
+    A simple in-memory API to manage fitness classes and bookings for a gym studio.
+
+servers:
+  - url: http://localhost:8080
+    description: Local development server
+
+paths:
+  /classes:
+    post:
+      summary: Create a new class
+      description: Create a class between start_date and end_date with defined capacity.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ClassRequest"
+      responses:
+        '201':
+          description: Class created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClassResponse"
+        '400':
+          description: Invalid request or overlapping class exists
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /bookings:
+    post:
+      summary: Book a class for a member
+      description: Reserve a spot in a class for the given date.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BookingRequest"
+      responses:
+        '201':
+          description: Booking successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BookingResponse"
+        '400':
+          description: Class does not exist on given date
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+components:
+  schemas:
+    ClassRequest:
+      type: object
+      required:
+        - class_name
+        - start_date
+        - end_date
+        - capacity
+      properties:
+        class_name:
+          type: string
+        start_date:
+          type: string
+          format: date-time
+        end_date:
+          type: string
+          format: date-time
+        capacity:
+          type: integer
+
+    ClassResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        class:
+          $ref: "#/components/schemas/ClassRequest"
+
+    BookingRequest:
+      type: object
+      required:
+        - name
+        - date
+      properties:
+        name:
+          type: string
+        date:
+          type: string
+          format: date-time
+
+    BookingResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        booking:
+          $ref: "#/components/schemas/BookingRequest"
+
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
