@@ -56,10 +56,15 @@ The server will start on `http://localhost:9000`.
   - Response Body:
       ```json
       {
-          "class_name": "Yoga",
-          "start_date": "2025-05-03T10:00:00Z",
-          "end_date": "2025-05-03T11:00:00Z",
-          "capacity": 20
+          "code": 201,
+          "data": 
+          {
+              "class_name": "Yoga",
+              "start_date": "2025-05-03T10:00:00Z",
+              "end_date": "2025-05-03T11:00:00Z",
+              "capacity": 20
+           },
+          "errors":null
       }
       ```
 
@@ -77,8 +82,13 @@ The server will start on `http://localhost:9000`.
   - Response Body:
       ```json
       {
-          "name": "John Doe",
-          "date": "2025-05-03T10:00:00Z"
+         "code": 201,
+          "data": 
+          {
+              "name": "John Doe",
+              "date": "2025-05-03T10:00:00Z"
+           },
+          "errors":null
       }
       ```
 
