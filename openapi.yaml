@@ -6,7 +6,7 @@ info:
     A simple in-memory API to manage fitness classes and bookings for a gym studio.
 
 servers:
-  - url: http://localhost:8080
+  - url: http://localhost:9000
     description: Local development server
 
 paths:
