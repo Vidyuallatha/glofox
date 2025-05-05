@@ -5,6 +5,7 @@ import (
 	"errors"
 	"github.com/Vidyuallatha/glofox/src/components"
 	"github.com/Vidyuallatha/glofox/src/utils"
+	"log"
 	"net/http"
 )
 
@@ -27,6 +28,7 @@ func HandleClasses(w http.ResponseWriter, r *http.Request) {
 func (cc *ClassesController) CreateClass(w http.ResponseWriter, r *http.Request) {
 	classForm := classesComponent.GetClassForm()
 	if err := json.NewDecoder(r.Body).Decode(classForm); err != nil {
+		log.Println("Error occurred while decoding json ", err)
 		utils.WriteJSON(w, http.StatusBadRequest, nil, []error{errors.New("invalid request body")})
 		return
 	}

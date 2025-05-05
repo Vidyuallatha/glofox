@@ -5,6 +5,7 @@ import (
 	"errors"
 	"github.com/Vidyuallatha/glofox/src/components"
 	"github.com/Vidyuallatha/glofox/src/utils"
+	"log"
 	"net/http"
 )
 
@@ -27,6 +28,7 @@ func HandleBookings(w http.ResponseWriter, r *http.Request) {
 func (bc *BookingsController) CreateBooking(w http.ResponseWriter, r *http.Request) {
 	bookingForm := bookingsComponent.GetBookingForm()
 	if err := json.NewDecoder(r.Body).Decode(bookingForm); err != nil {
+		log.Println("Error occurred while decoding json ", err)
 		utils.WriteJSON(w, http.StatusBadRequest, nil, []error{errors.New("invalid request body")})
 		return
 	}
